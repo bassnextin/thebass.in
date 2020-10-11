@@ -1,0 +1,41 @@
+# for error page
+
+ErrorDocument 404 /404.html
+
+
+
+# for https www
+
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteCOnd %{HTTP_HOST} ^(www\.)?thebass\.in
+RewriteRUle ^(.*)$ https://www.thebass.in/$1 [R,L]
+
+
+
+# for https
+
+RewriteEngine On
+RewriteCond %{SERVER_PORT} 80
+RewriteCOnd %{HTTP_HOST} ^(www\.)?thebass\.in
+RewriteRUle ^(.*)$ https://thebass.in/$1 [R,L]
+
+
+
+# for removing file extensions from the url
+
+# mod_rewrite starts here
+
+RewriteEngine on
+
+# does not apply to existing directories, meaning that if the folder exists on the server then don't change anything and don't run the Rule!
+
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Check for file in directory with .html extension
+
+RewriteCond %{REQUEST_FILENAME}\.html -f
+
+# Here we actually show the page that has the .html extension
+
+RewriteRule ^(.*)$ $1.html [NC,L]
